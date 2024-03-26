@@ -1,34 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
-// import './Grid.css';
-
-
-const gameBoardArr = ["", "", "","", "", "","", "", ""]; // stores date for game
-const playersObj = {};
+import { GameBoard, HandleClick } from './Components/Main';
 
 
 
 function App() {
 
-  // allows user to select player "x" or "o"
-  const [currentValue, setCurrentValue] = useState(null);
-  const handleXClick = () => {
-    setCurrentValue("X");
-  }
-  const handleOClick = () => {
-    setCurrentValue("O")
-  }
 
-  // adds player's symbol to square that is clicked
-  const updateSquare = (index) => {
-    const square = document.querySelectorAll(".square")[index];
-    // makes sure square is empty
-    if (!square.innerText){
-      square.innerText = currentValue;
-    }
-   
-  }
+  /* 
+  
+  return (
+    <>
+      <Header /> // Header.js --> export default Header;
+      <MainBody />
+      <Footer />
+    </>
+  )
+  
+  */
 
   return (
   <div className='main-body flex justify-center items-center flex-col'>
@@ -38,26 +28,26 @@ function App() {
       <div className='header'>
         <p className='difficulty-level underline'>Mode</p>
         <span>
-          <button className='X border-solid border-2 border-black' onClick={handleXClick}> X </button>
-          <button className='O border-solid border-2 border-black'  onClick={handleOClick}> O </button>
+          <button className='X-btn border-solid border-2 border-black' onClick={HandleClick}> X </button>
+          <button className='O-btn border-solid border-2 border-black'  onClick={HandleClick}> O </button>
         </span>
       </div>
 
       <div className='gameboard'>
         <div className='row1'>
-          <button className='square' onClick={() => updateSquare(0)}></button>
-          <button className='square' onClick={() => updateSquare(1)}></button>
-          <button className='square' onClick={() => updateSquare(2)}></button>
+          <button className='square' onClick={() => HandleClick(1, 0)}></button>
+          <button className='square' onClick={() => HandleClick(1, 1)}></button>
+          <button className='square' onClick={() => HandleClick(1, 2)}></button>
         </div>
         <div className='row2'>
-          <button className='square' onClick={() => updateSquare(3)}></button>
-          <button className='square' onClick={() => updateSquare(4)}></button>
-          <button className='square' onClick={() => updateSquare(5)}></button>
+          <button className='square' onClick={() => HandleClick(2, 3)}></button>
+          <button className='square' onClick={() => HandleClick(2, 4)}></button>
+          <button className='square' onClick={() => HandleClick(2, 5)}></button>
         </div>
         <div className='row3'>
-          <button className='square' onClick={() => updateSquare(6)}></button>
-          <button className='square' onClick={() => updateSquare(7)}></button>
-          <button className='square' onClick={() => updateSquare(8)}></button>
+          <button className='square' onClick={() => HandleClick(3, 6)}></button>
+          <button className='square' onClick={() => HandleClick(3, 7)}></button>
+          <button className='square' onClick={() => HandleClick(3, 8)}></button>
         </div>
        </div>
         
