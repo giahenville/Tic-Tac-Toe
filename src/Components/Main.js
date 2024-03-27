@@ -9,9 +9,9 @@ let aiSymbol;
 let playerObj = {name : "Player", symbol : playerSymbol, winner : false};
 let aiObj = {name : "Ai", symbol : aiSymbol, winner : false};
 let gameBoardArr = [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null]
+    null, null, null,
+    null, null, null,
+    null, null, null
 ];
 
 // takes in a symbol and saves it as the player's symbol for the current game
@@ -21,20 +21,29 @@ const HandlePlayerSymbol = (symbol) => {
         playerSymbol = symbol;
     }
     // error handling
-    console.log("HandlePlayerSymbol Passed");
-    console.log("Passed in symbol:", symbol);
-    console.log("Player symbol: ", playerSymbol);
+    // console.log("HandlePlayerSymbol Passed");
+    // console.log("Passed in symbol:", symbol);
+    // console.log("Player symbol: ", playerSymbol);
 }
 
-// updates square inner text and adds value to gameArr
-const HandleSquareClick = (row, index) => {
-    const square = document.querySelectorAll(".square")[row][index];
-    // makes sure square is empty and updates inner text
-    if (!square.innerText){
-        square.innerText = playerSymbol;
-        gameBoardArr[row][index] = playerSymbol; // updates gameboard array
+// updates square display and gameBoardArr
+const HandleSquareClick = (index) => {
+    const squares = document.querySelectorAll(".square");
+    console.log(squares);
+    if(playerSymbol){
+        squares[index].innerText = playerSymbol;
+        gameBoardArr[index] = playerSymbol;
+    }else{
+        alert("Please chose a symbol.");
     }
-}
+    // error handling
+    // console.log("HandleSquareClick Passed");
+    console.log(gameBoardArr);
+};
+
+// get ai to play on easy mode
+
+
 
 
 // checks who has won the game 

@@ -28,26 +28,26 @@ function App() {
       <div className='header'>
         <p className='difficulty-level underline'>Mode</p>
         <span>
-          <button className='X-btn border-solid border-2 border-black' onClick={HandleClick}> X </button>
-          <button className='O-btn border-solid border-2 border-black'  onClick={HandleClick}> O </button>
+          <button className='X-btn border-solid border-2 border-black' onClick={ () => HandlePlayerSymbol("X")}> X </button>
+          <button className='O-btn border-solid border-2 border-black'  onClick={ () => HandlePlayerSymbol("O")}> O </button>
         </span>
       </div>
 
-      <div className='gameboard'>
-        <div className='row1'>
-          <button className='square' onClick={() => HandleClick(1, 0)}></button>
-          <button className='square' onClick={() => HandleClick(1, 1)}></button>
-          <button className='square' onClick={() => HandleClick(1, 2)}></button>
+      <div className='gameboard flex-col'>
+        <div className='row1 flex'>
+          <button className='square' onClick={ () => HandleSquareClick(0)} ></button>
+          <button className='square' onClick={ () => HandleSquareClick(1)} ></button>
+          <button className='square' onClick={ () => HandleSquareClick(2)} ></button>
         </div>
-        <div className='row2'>
-          <button className='square' onClick={() => HandleClick(2, 3)}></button>
-          <button className='square' onClick={() => HandleClick(2, 4)}></button>
-          <button className='square' onClick={() => HandleClick(2, 5)}></button>
+        <div className='row2 flex'>
+          <button className='square' onClick={ () => HandleSquareClick(3)} ></button>
+          <button className='square' onClick={ () => HandleSquareClick(4)} ></button>
+          <button className='square' onClick={ () => HandleSquareClick(5)} ></button>
         </div>
-        <div className='row3'>
-          <button className='square' onClick={() => HandleClick(3, 6)}></button>
-          <button className='square' onClick={() => HandleClick(3, 7)}></button>
-          <button className='square' onClick={() => HandleClick(3, 8)}></button>
+        <div className='row3 flex'>
+          <button className='square' onClick={ () => HandleSquareClick(6)} ></button>
+          <button className='square' onClick={ () => HandleSquareClick(7)} ></button>
+          <button className='square' onClick={ () => HandleSquareClick(8)} ></button>
         </div>
        </div>
         
