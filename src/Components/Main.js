@@ -43,10 +43,12 @@ const HandleSquareClick = (index) => {
 
 // sets ai symbol
 const getAiSymbol = () => {
-    if (playerSymbol === "X") {
-        aiSymbol = "O";
-    }else{
-        aiSymbol = "X";
+    if(playerSymbol){
+        if (playerSymbol === "X") {
+            aiSymbol = "O";
+        }else{
+            aiSymbol = "X";
+        }
     }
 }
 
