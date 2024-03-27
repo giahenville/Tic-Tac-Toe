@@ -70,7 +70,7 @@ const getGameStatus = () => {
 const GameBoard = function () {
     
 
-    gameBoardObj = {playerObj, aiObj, HandleClick, getGameStatus};
+    // gameBoardObj = {playerObj, aiObj, HandleSquareClick, getGameStatus};
 
     return gameBoardObj; // factory function returns an object
   

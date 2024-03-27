@@ -1,25 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
-import { GameBoard, HandleClick } from './Components/Main';
+import { GameBoard, HandlePlayerSymbol, HandleSquareClick } from './Components/Main';
 
 
 
 function App() {
-
-
-  /* 
   
-  return (
-    <>
-      <Header /> // Header.js --> export default Header;
-      <MainBody />
-      <Footer />
-    </>
-  )
-  
-  */
-
   return (
   <div className='main-body flex justify-center items-center flex-col'>
 
