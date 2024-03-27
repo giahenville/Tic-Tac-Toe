@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
-import { GameBoard, HandlePlayerSymbol, HandleSquareClick } from './Components/Main';
+import { GameBoard, HandlePlayerSymbol, HandleSquareClick, GetAiSymbol } from './Components/Main';
 
 
 
@@ -22,19 +22,46 @@ function App() {
 
       <div className='gameboard flex-col'>
         <div className='row1 flex'>
-          <button className='square' onClick={ () => HandleSquareClick(0)} ></button>
-          <button className='square' onClick={ () => HandleSquareClick(1)} ></button>
-          <button className='square' onClick={ () => HandleSquareClick(2)} ></button>
+          <button className='square' onClick={ () => { 
+            HandleSquareClick(0); 
+            GetAiSymbol();
+          }} ></button>
+          <button className='square' onClick={ () => {
+            HandleSquareClick(1); 
+            GetAiSymbol();
+          }}  ></button>
+          <button className='square' onClick={ () => {
+            HandleSquareClick(2); 
+            GetAiSymbol();
+          }} ></button>
         </div>
         <div className='row2 flex'>
-          <button className='square' onClick={ () => HandleSquareClick(3)} ></button>
-          <button className='square' onClick={ () => HandleSquareClick(4)} ></button>
-          <button className='square' onClick={ () => HandleSquareClick(5)} ></button>
+          <button className='square' onClick={ () => {
+            HandleSquareClick(3); 
+            GetAiSymbol();
+          }} ></button>
+          <button className='square' onClick={ () => {
+            HandleSquareClick(4); 
+            GetAiSymbol();
+          }} ></button>
+          <button className='square' onClick={ () => {
+            HandleSquareClick(5); 
+            GetAiSymbol();
+          }} ></button>
         </div>
         <div className='row3 flex'>
-          <button className='square' onClick={ () => HandleSquareClick(6)} ></button>
-          <button className='square' onClick={ () => HandleSquareClick(7)} ></button>
-          <button className='square' onClick={ () => HandleSquareClick(8)} ></button>
+          <button className='square' onClick={ () => {
+            HandleSquareClick(6); 
+            GetAiSymbol();
+          }} ></button>
+          <button className='square' onClick={ () => {
+            HandleSquareClick(7); 
+            GetAiSymbol();
+          }} ></button>
+          <button className='square' onClick={ () => {
+            HandleSquareClick(8); 
+            GetAiSymbol();
+          }} ></button>
         </div>
        </div>
         
