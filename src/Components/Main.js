@@ -14,29 +14,26 @@ let gameBoardArr = [
     [null, null, null]
 ];
 
-// allows user to select player "x" or "o" using the x or o buttons!
-const HandleClick = (row, index) => {
-    const xBtn = document.querySelector(".x-btn");
-    const oBtn = document.querySelector("o.btn");
+// takes in a symbol and saves it as the player's symbol for the current game
+const HandlePlayerSymbol = (symbol) => {
+    // only allows user to chose a symbol once per game
+    if (!playerSymbol){
+        playerSymbol = symbol;
+    }
+    // error handling
+    console.log("HandlePlayerSymbol Passed");
+    console.log("Passed in symbol:", symbol);
+    console.log("Player symbol: ", playerSymbol);
+}
 
-    const [currentValue, setCurrentValue] = useState(null);
+// updates square inner text and adds value to gameArr
+const HandleSquareClick = (row, index) => {
     const square = document.querySelectorAll(".square")[row][index];
     // makes sure square is empty and updates inner text
     if (!square.innerText){
-        square.innerText = currentValue;
-        gameBoardArr[row][index] = currentValue; // updates gameboard array
+        square.innerText = playerSymbol;
+        gameBoardArr[row][index] = playerSymbol; // updates gameboard array
     }
-
-    xBtn.addEventListener("click", () => {
-        setCurrentValue("X");
-        playerSymbol = "X";
-        aiSymbol = "O";
-    })
-    oBtn.addEventListener("click", () => {
-        setCurrentValue("O")
-        playerSymbol = "O";
-        aiSymbol = "X";
-    })
 }
 
 
@@ -59,5 +56,6 @@ const GameBoard = function () {
 
 export{
     GameBoard, 
-    HandleClick,
+    HandlePlayerSymbol,
+    HandleSquareClick
 } ;
