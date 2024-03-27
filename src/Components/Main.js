@@ -34,15 +34,26 @@ const HandleSquareClick = (index) => {
         squares[index].innerText = playerSymbol;
         gameBoardArr[index] = playerSymbol;
     }else{
-        alert("Please chose a symbol.");
+        alert("Please choose a symbol.");
     }
     // error handling
     // console.log("HandleSquareClick Passed");
-    console.log(gameBoardArr);
+    // console.log(gameBoardArr);
 };
 
-// get ai to play on easy mode
+// sets ai symbol
+const getAiSymbol = () => {
+    if (playerSymbol === "X") {
+        aiSymbol = "O";
+    }else{
+        aiSymbol = "X";
+    }
+}
 
+// get ai to play on easy mode
+const aiModes = () => {
+
+}
 
 
 
