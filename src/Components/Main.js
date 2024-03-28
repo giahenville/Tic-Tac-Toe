@@ -34,7 +34,8 @@ const HandlePlayerSymbol = (symbol) => {
 // updates square display and gameBoardArr
 /* FIX: DO NOT allow player to click the same square 
 more than once! Right now the player can click 
-the same square and the ai clicks a different square */
+the same square and the ai clicks a different square ********* */ 
+// TODO: make sure x always goes first! ********
 const HandleSquareClick = (index) => {
     const square = document.getElementById(`${index}`);
     // removes populated indexes from availableIndexes array
@@ -57,10 +58,11 @@ const generateRandomIndex = () => {
     }
     GetGameStatus(); 
 };
+
 // handles ai input based on mode 
 const HandleAiClick = () => {
     /* TODO: remember to check GetGameStatus every time 
-    because there could be a winner before the gameboardarr is empty */
+    because there could be a winner before the gameboardarr is empty ********** */
     switch (aiMode) {
         case "easy":
             let aiIndex = generateRandomIndex();
@@ -70,7 +72,7 @@ const HandleAiClick = () => {
                 square.innerText = aiSymbol;
             }
             break;
-        // TODO: write cases for "hard" and "impossible"
+        // TODO: write cases for "hard" and "impossible" ***************
         case "hard":
             break;
         case "impossible":
@@ -78,11 +80,10 @@ const HandleAiClick = () => {
     }
 }
 
-
 // checks who has won the game 
 const GetGameStatus = () => {
 /* needs to get this for every square click at 
-    all times!!! Maybe move this to gameboard file */
+    all times!!! Maybe move this to gameboard file ************** */
 
     // if all elements in a row are the same, there is a winner
     // if the player symbol is three in a row, player wins
