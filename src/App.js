@@ -10,7 +10,7 @@ function App() {
       <h1>Tic-Tac-Toe in React</h1>
       <div className='main-container flex flex-col justify-center border-solid border-2 border-black '>
         {/* TODO: move styling from App.css to here using tailwindcss ********** */}
-        <Selection/>
+        <Selection />
         <GameBoard />
         <button>Start / Restart</button>
       </div>

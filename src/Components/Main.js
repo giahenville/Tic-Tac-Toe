@@ -41,12 +41,15 @@ const HandleSquareClick = (index) => {
     // removes populated indexes from availableIndexes array
     availableIndexes.splice(availableIndexes.indexOf(index), 1);
     if(playerSymbol){
-        square.innerText = playerSymbol; 
+        square.innerText = playerSymbol; /* make sure this renders before 
+                                            a winner is announced */
         gameBoardArr[index] = playerSymbol;
         HandleAiClick();
+       
     }else{
         alert("Please choose a symbol.");
     }
+    GetGameStatus(); // checks if there is a winner
 };
 
 const generateRandomIndex = () => {
@@ -56,7 +59,7 @@ const generateRandomIndex = () => {
         availableIndexes.splice(availableIndexes.indexOf(index), 1);
         return index;
     }
-    GetGameStatus(); 
+    // GetGameStatus(); 
 };
 
 // handles ai input based on mode 
@@ -78,16 +81,43 @@ const HandleAiClick = () => {
         case "impossible":
             break;
     }
+    GetGameStatus();
 }
 
 // checks who has won the game 
 const GetGameStatus = () => {
 /* needs to get this for every square click at 
-    all times!!! Maybe move this to gameboard file ************** */
+    all times!!! Maybe move this to gameboard file ***************/
 
-    // if all elements in a row are the same, there is a winner
-    // if the player symbol is three in a row, player wins
-    console.log("WINNER!!!");
+    // returns who the winner is
+    const checkSymbol = (index) => {
+        if (gameBoardArr[index] === playerSymbol) {
+            return alert("Player Wins!");
+        }else if (gameBoardArr[index] === aiSymbol){
+            return alert("Ai wins!");
+        }
+    }
+
+    const checkWinner = (index1, index2, index3) => {
+        if (gameBoardArr[index1] === gameBoardArr[index2] && gameBoardArr[index2] === gameBoardArr[index3]){
+            checkSymbol(index1);
+            return true;
+        };
+        return false;
+    }
+    // checks winner for horizontal rows
+
+    if (checkWinner(0, 1, 2)) return;
+    if (checkWinner(3, 4, 5)) return;
+    if (checkWinner(6, 7, 8)) return;
+    // checks winner for vertical columns
+    if (checkWinner(0, 3, 6)) return;
+    if (checkWinner(1, 4, 7)) return;
+    if (checkWinner(2, 5, 8)) return;
+    // checks winner at diagonal
+    if (checkWinner(0, 4, 8)) return;
+    if (checkWinner(2, 4, 6)) return;
+
 }
 
 export{
