@@ -1,5 +1,5 @@
 import '../App.css';
-import { useState } from 'react';
+
 
 let playerSymbol;
 let aiSymbol;
@@ -14,15 +14,13 @@ let gameBoardArr = [
 let availableIndexes = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 // makes sure game cannot be played once a winner has been established
 let winner = false; 
-console.log(winner);
 
 // get ai to play on easy mode
 const SetAiMode = (selectedMode) => {
     aiMode = selectedMode;
-    
 }
 
-// takes in a symbol and saves it as the player's symbol for the current game
+// takes in a symbol and saves it as the player's symbol for the current game. Sets aiSymbol
 const HandlePlayerSymbol = (symbol) => {
     // only allows user to chose a symbol once per game
     if (!playerSymbol){
@@ -41,6 +39,7 @@ more than once! Right now the player can click
 the same square and the ai clicks a different square ********* */ 
 // TODO: make sure x always goes first! ********
 const HandleSquareClick = (index) => {
+    
     if (!winner){ // makes sure game cannot be played when there is already a winner
         const square = document.getElementById(`${index}`);
         // removes populated indexes from availableIndexes array
@@ -58,6 +57,7 @@ const HandleSquareClick = (index) => {
     }else {
         alert("Play again!");
     }
+    
 };
 
 const generateRandomIndex = () => {
@@ -74,6 +74,7 @@ const HandleAiClick = () => {
     /* TODO: remember to check GetGameStatus every time 
     because there could be a winner before the gameboardarr is empty ********** */
     if (!winner){ // only runs when there isn't a winner
+        
         switch (aiMode) {
             case "easy":
                 let aiIndex = generateRandomIndex();
@@ -91,14 +92,32 @@ const HandleAiClick = () => {
         }
         GetGameStatus();
     }
+    checkDraw();
 }
 
+/* TODO: find a place to call this. Right now it sometimes 
+says draw when there is a winner. Also alert is in infinite loop */
+let draw = false;
+const checkDraw = () => { ////////////FIXXXXX 
+    let gameBoardPopulation = 0;
+    gameBoardArr.forEach(symbol => {
+        if (symbol != null) {
+            gameBoardPopulation++;
+        }
+    });
+    if (gameBoardPopulation === 9) {
+        draw = true;
+        winner = true; // stops infinite loop of alerts NOT CURRENTLY USED
+    }
+    if (draw === true) {
+        alert("Draw");
+        return 
+    }
+    
+}
 
 // checks who has won the game 
 const GetGameStatus = () => {
-/* needs to get this for every square click at 
-    all times!!! Maybe move this to gameboard file ***************/
-    // if (winner) alert("Play again!");
     // returns who the winner is
     const checkSymbol = (index) => {
         if (gameBoardArr[index] === playerSymbol) {
@@ -110,16 +129,17 @@ const GetGameStatus = () => {
         }
     }
 
+    // checks if there is a winner
     const checkWinner = (index1, index2, index3) => {
         if (gameBoardArr[index1] === gameBoardArr[index2] && gameBoardArr[index2] === gameBoardArr[index3]){
             checkSymbol(index1);
             return true;
         };
+        // checkDraw(); // checks if there is a draw
         return false;
     }
 
-    // makes sure this only runs when there isn't a winner 
-    if (!winner){
+    if (!winner){ // makes sure this only runs when there isn't a winner 
         // checks winner for horizontal rows
         if (checkWinner(0, 1, 2)) return;
         if (checkWinner(3, 4, 5)) return;
@@ -128,12 +148,10 @@ const GetGameStatus = () => {
         if (checkWinner(0, 3, 6)) return;
         if (checkWinner(1, 4, 7)) return;
         if (checkWinner(2, 5, 8)) return;
-        // checks winner at diagonal
+        // checks winner at diagonals
         if (checkWinner(0, 4, 8)) return;
         if (checkWinner(2, 4, 6)) return;
     }
-    
-    console.log(winner);
 }
 
 export{
