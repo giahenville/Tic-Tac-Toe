@@ -1,8 +1,6 @@
 import { HandleSquareClick } from './Main';
 
-/* TODO: Make gameboard into its own component that 
-builds the board and call it in the App.js file to keep code clean */
-export default function GameBoard() {
+function GameBoard() {
     return (
         <div className='gameboard flex-col'>
             <div className='row1 flex'>
@@ -41,3 +39,7 @@ export default function GameBoard() {
       </div>
     );
 };
+
+export {
+    GameBoard
+}
