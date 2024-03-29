@@ -49,6 +49,7 @@ const SetPlayOrder = () => {
 }
 
 // updates square display and gameBoardArr
+// TODO: make sure player can only add symbols on their turn. wait for ai to play
 const HandleSquareClick = (index) => {
     if (!winner){ // makes sure game cannot be played when there is already a winner
         const square = document.getElementById(`${index}`);
@@ -83,9 +84,22 @@ const generateRandomIndex = () => {
 // handles ai input based on mode 
 const HandleAiClick = () => {
     if (!winner){ // only runs when there isn't a winner
+        let aiIndex = generateRandomIndex();
+        // if (checkWinner(0, 1, 2)) return;
+        // if (checkWinner(3, 4, 5)) return;
+        // if (checkWinner(6, 7, 8)) return;
+        // // checks winner for vertical columns
+        // if (checkWinner(0, 3, 6)) return;
+        // if (checkWinner(1, 4, 7)) return;
+        // if (checkWinner(2, 5, 8)) return;
+        // // checks winner at diagonals
+        // if (checkWinner(0, 4, 8)) return;
+        // if (checkWinner(2, 4, 6)) return;
+   
+
         switch (aiMode) {
             case "easy":
-                let aiIndex = generateRandomIndex();
+                // randomly selects an empty square
                 const square = document.getElementById(`${aiIndex}`);
                 if (gameBoardArr[aiIndex] === null) {
                     gameBoardArr[aiIndex] = aiSymbol;
@@ -94,8 +108,16 @@ const HandleAiClick = () => {
                 break;
             // TODO: write cases for "hard" and "impossible" ***************
             case "hard":
+                // always try to fill in rows and colums of threes
+
+                // otherwise randomly select a square
+                gameBoardArr[aiIndex] = aiSymbol;
                 break;
             case "impossible":
+                // always try to fill in all winning directions
+
+                // otherwise randomly select a square
+                gameBoardArr[aiIndex] = aiSymbol;
                 break;
         }
         GetGameStatus();
@@ -114,7 +136,6 @@ const checkDraw = () => {
         });
         if (gameBoardPopulation === 9) {
             draw = true;
-            winner = true; // stops infinite loop of alerts NOT CURRENTLY USED
         }
         if (draw === true) {
             alert("Draw");
@@ -138,26 +159,18 @@ const GetGameStatus = () => {
     }
 
     // checks if there is a winner
-    const checkWinner = (index1, index2, index3) => {
-        if (gameBoardArr[index1] === gameBoardArr[index2] && gameBoardArr[index2] === gameBoardArr[index3]){
-            checkSymbol(index1);
-            return true;
-        };
+    const checkWinner = (arr) => {
+        for (let i = 0; i < arr.length; i++){
+            if (gameBoardArr[arr[i][0]] === gameBoardArr[arr[i][1]] && gameBoardArr[arr[i][1]] === gameBoardArr[arr[i][2]]){
+                checkSymbol(arr[i][0]);
+                return true;
+            };
+        }
         return false;
     }
 
     if (!winner){ // makes sure this only runs when there isn't a winner 
-        // checks winner for horizontal rows
-        if (checkWinner(0, 1, 2)) return;
-        if (checkWinner(3, 4, 5)) return;
-        if (checkWinner(6, 7, 8)) return;
-        // checks winner for vertical columns
-        if (checkWinner(0, 3, 6)) return;
-        if (checkWinner(1, 4, 7)) return;
-        if (checkWinner(2, 5, 8)) return;
-        // checks winner at diagonals
-        if (checkWinner(0, 4, 8)) return;
-        if (checkWinner(2, 4, 6)) return;
+        checkWinner(winningSets);
     }
 }
 
