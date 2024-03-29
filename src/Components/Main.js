@@ -9,6 +9,16 @@ let gameBoardArr = [
     null, null, null,
     null, null, null
 ];
+const winningSets = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+];
 // generates a random index between 0-8 for ai choice
 let availableIndexes = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 // makes sure game cannot be played once a winner has been established
