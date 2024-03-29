@@ -35,14 +35,11 @@ const HandlePlayerSymbol = (symbol) => {
 
 // makes sure "X" always goes first
 const SetPlayOrder = () => {
-    if (playerSymbol === "O") HandleAiClick();
+    if (playerSymbol === "O") setTimeout(HandleAiClick, 500); 
 }
 
 // updates square display and gameBoardArr
-/* TODO: make sure the symbol displays before the winner is announced. 
-And stop the the ai from selecting a square when the player already won ********/
 const HandleSquareClick = (index) => {
-    
     if (!winner){ // makes sure game cannot be played when there is already a winner
         const square = document.getElementById(`${index}`);
         if (square.innerText) return; /* does not allow the player to click the same 
@@ -51,11 +48,9 @@ const HandleSquareClick = (index) => {
         // removes populated indexes from availableIndexes array
         availableIndexes.splice(availableIndexes.indexOf(index), 1);
         if(playerSymbol){
-            square.innerText = playerSymbol; /* make sure this renders before 
-                                                a winner is announced *******/
+            square.innerText = playerSymbol; 
             gameBoardArr[index] = playerSymbol;
-            HandleAiClick();
-        
+            setTimeout(HandleAiClick, 500); // stops ai from playing once player has won
         }else if (!playerSymbol){
             alert("Please choose a symbol.");
         }else {
@@ -124,10 +119,11 @@ const GetGameStatus = () => {
     const checkSymbol = (index) => {
         if (gameBoardArr[index] === playerSymbol) {
             winner = true;
-            return alert("Player Wins!");
+            console.log("Player Wins!");
+            
         }else if (gameBoardArr[index] === aiSymbol){
             winner = true;
-            return alert("Ai wins!");
+            console.log("Ai wins!");
         }
     }
 
