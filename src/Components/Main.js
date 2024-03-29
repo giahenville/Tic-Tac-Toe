@@ -4,7 +4,6 @@ import '../App.css';
 let playerSymbol;
 let aiSymbol;
 let aiMode = "easy"; // default value to "easy"
-
 let gameBoardArr = [
     null, null, null,
     null, null, null,
@@ -14,6 +13,7 @@ let gameBoardArr = [
 let availableIndexes = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 // makes sure game cannot be played once a winner has been established
 let winner = false; 
+let draw = false;
 
 // get ai to play on easy mode
 const SetAiMode = (selectedMode) => {
@@ -34,14 +34,14 @@ const HandlePlayerSymbol = (symbol) => {
 }
 
 // updates square display and gameBoardArr
-/* FIX: DO NOT allow player to click the same square 
-more than once! Right now the player can click 
-the same square and the ai clicks a different square ********* */ 
 // TODO: make sure x always goes first! ********
+/* TODO: make sure the symbol displays before the winner is announced. 
+And stop the the ai from selecting a square when the player already won ********/
 const HandleSquareClick = (index) => {
-    
     if (!winner){ // makes sure game cannot be played when there is already a winner
         const square = document.getElementById(`${index}`);
+        if (square.innerText) return; /* does not allow the player to click the same 
+                                        square twice and stops ai from clicking a square */
         // removes populated indexes from availableIndexes array
         availableIndexes.splice(availableIndexes.indexOf(index), 1);
         if(playerSymbol){
@@ -56,10 +56,10 @@ const HandleSquareClick = (index) => {
             alert("Play again!");   
         }
         GetGameStatus(); // checks if there is a winner
-        
     }
 };
 
+// used for generating index for ai 
 const generateRandomIndex = () => {
     let index = availableIndexes[Math.floor(Math.random() * availableIndexes.length)];
     if(availableIndexes.length){
@@ -74,7 +74,6 @@ const HandleAiClick = () => {
     /* TODO: remember to check GetGameStatus every time 
     because there could be a winner before the gameboardarr is empty ********** */
     if (!winner){ // only runs when there isn't a winner
-        
         switch (aiMode) {
             case "easy":
                 let aiIndex = generateRandomIndex();
@@ -93,11 +92,9 @@ const HandleAiClick = () => {
         GetGameStatus();
         checkDraw();
     }
- 
 }
 
-
-let draw = false;
+// checks if there is a draw
 const checkDraw = () => { 
     if (!winner){ // stops double alert when a player wins when the gameboardarr is full
         let gameBoardPopulation = 0;
@@ -119,7 +116,6 @@ const checkDraw = () => {
 
 // checks who has won the game 
 const GetGameStatus = () => {
-    // checkDraw();
     // returns who the winner is
     const checkSymbol = (index) => {
         if (gameBoardArr[index] === playerSymbol) {
@@ -137,7 +133,6 @@ const GetGameStatus = () => {
             checkSymbol(index1);
             return true;
         };
-        // checkDraw(); // checks if there is a draw
         return false;
     }
 
@@ -155,6 +150,7 @@ const GetGameStatus = () => {
         if (checkWinner(2, 4, 6)) return;
     }
 }
+
 
 export{
     HandlePlayerSymbol,
