@@ -50,14 +50,14 @@ const HandleSquareClick = (index) => {
             gameBoardArr[index] = playerSymbol;
             HandleAiClick();
         
-        }else{
+        }else if (!playerSymbol){
             alert("Please choose a symbol.");
+        }else {
+            alert("Play again!");   
         }
         GetGameStatus(); // checks if there is a winner
-    }else {
-        alert("Play again!");
+        
     }
-    
 };
 
 const generateRandomIndex = () => {
@@ -91,33 +91,35 @@ const HandleAiClick = () => {
                 break;
         }
         GetGameStatus();
+        checkDraw();
     }
-    checkDraw();
+ 
 }
 
-/* TODO: find a place to call this. Right now it sometimes 
-says draw when there is a winner. Also alert is in infinite loop */
+
 let draw = false;
-const checkDraw = () => { ////////////FIXXXXX 
-    let gameBoardPopulation = 0;
-    gameBoardArr.forEach(symbol => {
-        if (symbol != null) {
-            gameBoardPopulation++;
+const checkDraw = () => { 
+    if (!winner){ // stops double alert when a player wins when the gameboardarr is full
+        let gameBoardPopulation = 0;
+        gameBoardArr.forEach(symbol => {
+            if (symbol != null) {
+                gameBoardPopulation++;
+            }
+        });
+        if (gameBoardPopulation === 9) {
+            draw = true;
+            winner = true; // stops infinite loop of alerts NOT CURRENTLY USED
         }
-    });
-    if (gameBoardPopulation === 9) {
-        draw = true;
-        winner = true; // stops infinite loop of alerts NOT CURRENTLY USED
+        if (draw === true) {
+            alert("Draw");
+            return 
+        }
     }
-    if (draw === true) {
-        alert("Draw");
-        return 
-    }
-    
 }
 
 // checks who has won the game 
 const GetGameStatus = () => {
+    // checkDraw();
     // returns who the winner is
     const checkSymbol = (index) => {
         if (gameBoardArr[index] === playerSymbol) {
