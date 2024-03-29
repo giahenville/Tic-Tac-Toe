@@ -1,4 +1,4 @@
-import { HandlePlayerSymbol, SetAiMode } from '../Components/Main';
+import { HandlePlayerSymbol, SetAiMode, SetPlayOrder } from '../Components/Main';
 
 function Selection () {
     return (
@@ -10,12 +10,13 @@ function Selection () {
                 <option value="impossible">Impossible</option>
             </select>
             </form>
-            <span>
-            <button className='X-btn border-solid border-2 border-black' onClick={ () => {
+            <span className='flex justify-center gap-2'>
+            <button className='X-btn border-solid border-2 border-black w-14' onClick={ () => {
                 HandlePlayerSymbol("X");
                 }}> X </button>
-            <button className='O-btn border-solid border-2 border-black'  onClick={ () => {
+            <button className='O-btn border-solid border-2 border-black w-14'  onClick={ () => {
                 HandlePlayerSymbol("O");
+                SetPlayOrder(); // gets ai to play first
                 }}> O </button>
             </span>
         </div>
