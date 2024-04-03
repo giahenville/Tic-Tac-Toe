@@ -1,5 +1,5 @@
-import '../App.css';
-
+import "../App.css";
+import {Minimax, SetSymbol} from "../Components/Minimax";
 
 let playerSymbol;
 let aiSymbol;
@@ -9,18 +9,12 @@ let gameBoardArr = [
     null, null, null,
     null, null, null
 ];
-const winningSets = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-];
+
+
+
 // generates a random index between 0-8 for ai choice
 let availableIndexes = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+
 // makes sure game cannot be played once a winner has been established
 let winner = false; 
 let draw = false;
@@ -70,6 +64,27 @@ const HandleSquareClick = (index) => {
         GetGameStatus(); // checks if there is a winner
     }
 };
+
+
+// checks if there is a draw
+const checkDraw = () => { 
+    if (!winner){ // stops double alert when a player wins when the gameboardarr is full
+        let gameBoardPopulation = 0;
+        gameBoardArr.forEach(symbol => {
+            if (symbol != null) {
+                gameBoardPopulation++;
+            }
+        });
+        if (gameBoardPopulation === 9) {
+            draw = true;
+        }
+        if (draw === true) {
+            alert("Draw");
+            return 
+        }
+    }
+}
+
 
 // used for generating index for ai 
 const generateRandomIndex = () => {
@@ -125,27 +140,19 @@ const HandleAiClick = () => {
     }
 }
 
-// checks if there is a draw
-const checkDraw = () => { 
-    if (!winner){ // stops double alert when a player wins when the gameboardarr is full
-        let gameBoardPopulation = 0;
-        gameBoardArr.forEach(symbol => {
-            if (symbol != null) {
-                gameBoardPopulation++;
-            }
-        });
-        if (gameBoardPopulation === 9) {
-            draw = true;
-        }
-        if (draw === true) {
-            alert("Draw");
-            return 
-        }
-    }
-}
-
 // checks who has won the game 
 const GetGameStatus = () => {
+    const winningSets = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ];
+    
     // returns who the winner is
     const checkSymbol = (index) => {
         if (gameBoardArr[index] === playerSymbol) {
@@ -158,15 +165,19 @@ const GetGameStatus = () => {
         }
     }
 
-    // checks if there is a winner
+    // checks if there is a winner (also used for minimax)
     const checkWinner = (arr) => {
         for (let i = 0; i < arr.length; i++){
-            if (gameBoardArr[arr[i][0]] === gameBoardArr[arr[i][1]] && gameBoardArr[arr[i][1]] === gameBoardArr[arr[i][2]]){
-                checkSymbol(arr[i][0]);
-                return true;
-            };
+          if (
+            gameBoardArr[arr[i][0]] === gameBoardArr[arr[i][1]] &&
+            gameBoardArr[arr[i][1]] === gameBoardArr[arr[i][2]] &&
+            gameBoardArr[arr[i][0]] !== null
+          ) {
+            checkSymbol(arr[i][0]);
+            return true;
+          }
         }
-        return false;
+        return false; 
     }
 
     if (!winner){ // makes sure this only runs when there isn't a winner 
