@@ -1,5 +1,7 @@
 import "../App.css";
 import {Minimax, SetSymbol} from "../Components/Minimax";
+import XImage from '../Assets/close.png';
+import OImage from '../Assets/letter-o.png';
 
 let playerSymbol;
 let aiSymbol;
@@ -53,7 +55,12 @@ const HandleSquareClick = (index) => {
         // removes populated indexes from availableIndexes array
         availableIndexes.splice(availableIndexes.indexOf(index), 1);
         if(playerSymbol){
-            square.innerText = playerSymbol; 
+            if (playerSymbol === "X"){
+                square.innerHTML = `<img src="${XImage}" alt="X Symbol" >`; 
+            } else {
+                square.innerHTML =  `<img src="${OImage}" alt="O Symbol">`;
+            }
+            
             gameBoardArr[index] = playerSymbol;
             setTimeout(HandleAiClick, 500); // stops ai from playing once player has won
         }else if (!playerSymbol){

@@ -1,4 +1,6 @@
 import { HandlePlayerSymbol, SetAiMode, SetPlayOrder } from '../Components/Main';
+import XImage from '../Assets/close.png';
+import OImage from '../Assets/letter-o.png';
 
 function Selection () {
     return (
@@ -11,13 +13,15 @@ function Selection () {
             </select>
             </form>
             <span className='flex justify-center gap-2'>
-            <button className='X-btn border-solid border-2 border-black w-14' onClick={ () => {
+            <button className='X-btn hover-effect' onClick={ () => {
                 HandlePlayerSymbol("X");
-                }}> X </button>
-            <button className='O-btn border-solid border-2 border-black w-14'  onClick={ () => {
+                }}> <img src={XImage} alt='O symbol' className='w-6'></img> 
+            </button>
+            <button className='O-btn hover-effect'  onClick={ () => {
                 HandlePlayerSymbol("O");
                 SetPlayOrder(); // gets ai to play first
-                }}> O </button>
+                }}>  <img src={OImage} alt='O symbol' className='w-8'></img> 
+            </button>
             </span>
         </div>
     )
