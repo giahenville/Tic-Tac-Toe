@@ -107,39 +107,42 @@ const generateRandomIndex = () => {
 const HandleAiClick = () => {
     if (!winner){ // only runs when there isn't a winner
         let aiIndex = generateRandomIndex();
-        // if (checkWinner(0, 1, 2)) return;
-        // if (checkWinner(3, 4, 5)) return;
-        // if (checkWinner(6, 7, 8)) return;
-        // // checks winner for vertical columns
-        // if (checkWinner(0, 3, 6)) return;
-        // if (checkWinner(1, 4, 7)) return;
-        // if (checkWinner(2, 5, 8)) return;
-        // // checks winner at diagonals
-        // if (checkWinner(0, 4, 8)) return;
-        // if (checkWinner(2, 4, 6)) return;
-   
-
+        
         switch (aiMode) {
             case "easy":
                 // randomly selects an empty square
-                const square = document.getElementById(`${aiIndex}`);
+                const square1 = document.getElementById(`${aiIndex}`);
                 if (gameBoardArr[aiIndex] === null) {
                     gameBoardArr[aiIndex] = aiSymbol;
-                    square.innerText = aiSymbol;
+                    if (aiSymbol === "X"){
+                        square1.innerHTML = `<img src="${XImage}" alt="O Symbol">`; 
+                    } else {
+                        square1.innerHTML =  `<img src="${OImage}" alt="O Symbol" > `;
+                    }
                 }
                 break;
             // TODO: write cases for "hard" and "impossible" ***************
             case "hard":
                 // always try to fill in rows and colums of threes
-
-                // otherwise randomly select a square
-                gameBoardArr[aiIndex] = aiSymbol;
+                //TODO: Implement minimax algorithm
+             
+                // checkAvailableSets(winningSets); ///USE MINIMAX
+                
+                
                 break;
             case "impossible":
-                // always try to fill in all winning directions
+                // Example usage:
+                SetSymbol(aiSymbol, playerSymbol); // sends symbols to Minimax.js 
+                let bestIndex = Minimax(gameBoardArr);
+              
+                console.log("Best move:", bestIndex);
 
-                // otherwise randomly select a square
-                gameBoardArr[aiIndex] = aiSymbol;
+                const square3 = document.getElementById(`${bestIndex}`);
+                if (gameBoardArr[bestIndex] === null) {
+                    gameBoardArr[bestIndex] = aiSymbol;
+                    square3.innerText = aiSymbol;
+                }
+                
                 break;
         }
         GetGameStatus();
@@ -197,5 +200,5 @@ export{
     HandlePlayerSymbol,
     HandleSquareClick,
     SetAiMode,
-    SetPlayOrder
+    SetPlayOrder,
 } ;
