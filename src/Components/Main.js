@@ -27,10 +27,13 @@ const SetAiMode = (selectedMode) => {
 }
 
 // takes in a symbol and saves it as the player's symbol for the current game. Sets aiSymbol
-const HandlePlayerSymbol = (symbol) => {
+const HandlePlayerSymbol = (symbol, named) => {
+    console.log(named);
     // only allows user to chose a symbol once per game
     if (!playerSymbol){
         playerSymbol = symbol;
+        const btnName = document.querySelector(`.${named}`);
+        btnName.classList.add("clicked");
     }
     if (playerSymbol === "X") {
         aiSymbol = "O";
@@ -196,9 +199,10 @@ const GetGameStatus = () => {
 }
 
 
+
 export{
     HandlePlayerSymbol,
     HandleSquareClick,
     SetAiMode,
-    SetPlayOrder,
+    SetPlayOrder
 } ;
