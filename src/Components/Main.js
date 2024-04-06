@@ -11,15 +11,12 @@ let gameBoardArr = [
     null, null, null,
     null, null, null
 ];
-
-
-
 // generates a random index between 0-8 for ai choice
 let availableIndexes = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-
 // makes sure game cannot be played once a winner has been established
 let winner = false; 
 let draw = false;
+
 
 // get ai to play on easy mode
 const SetAiMode = (selectedMode) => {
@@ -28,7 +25,6 @@ const SetAiMode = (selectedMode) => {
 
 // takes in a symbol and saves it as the player's symbol for the current game. Sets aiSymbol
 const HandlePlayerSymbol = (symbol, named) => {
-    console.log(named);
     // only allows user to chose a symbol once per game
     if (!playerSymbol){
         playerSymbol = symbol;
@@ -54,7 +50,6 @@ const HandleSquareClick = (index) => {
         const square = document.getElementById(`${index}`);
         if (square.innerText) return; /* does not allow the player to click the same 
                                         square twice and stops ai from clicking a square */
-        
         // removes populated indexes from availableIndexes array
         availableIndexes.splice(availableIndexes.indexOf(index), 1);
         if(playerSymbol){
@@ -63,7 +58,6 @@ const HandleSquareClick = (index) => {
             } else {
                 square.innerHTML =  `<img src="${OImage}" alt="O Symbol">`;
             }
-            
             gameBoardArr[index] = playerSymbol;
             setTimeout(HandleAiClick, 500); // stops ai from playing once player has won
         }else if (!playerSymbol){
@@ -110,7 +104,6 @@ const generateRandomIndex = () => {
 const HandleAiClick = () => {
     if (!winner){ // only runs when there isn't a winner
         let aiIndex = generateRandomIndex();
-        
         switch (aiMode) {
             case "easy":
                 // randomly selects an empty square
@@ -129,23 +122,10 @@ const HandleAiClick = () => {
                 // always try to fill in rows and colums of threes
                 //TODO: Implement minimax algorithm
              
-                // checkAvailableSets(winningSets); ///USE MINIMAX
-                
                 
                 break;
             case "impossible":
-                // Example usage:
-                SetSymbol(aiSymbol, playerSymbol); // sends symbols to Minimax.js 
-                let bestIndex = Minimax(gameBoardArr);
-              
-                console.log("Best move:", bestIndex);
-
-                const square3 = document.getElementById(`${bestIndex}`);
-                if (gameBoardArr[bestIndex] === null) {
-                    gameBoardArr[bestIndex] = aiSymbol;
-                    square3.innerText = aiSymbol;
-                }
-                
+               
                 break;
         }
         GetGameStatus();
@@ -171,10 +151,12 @@ const GetGameStatus = () => {
         if (gameBoardArr[index] === playerSymbol) {
             winner = true;
             console.log("Player Wins!");
+            alert("Player Wins!");
             
         }else if (gameBoardArr[index] === aiSymbol){
             winner = true;
             console.log("Ai wins!");
+            alert("Ai Wins!");
         }
     }
 

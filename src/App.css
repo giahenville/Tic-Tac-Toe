@@ -61,10 +61,10 @@
 }
 /* selection buttons */
 .hover-effect:hover {
-  transform: scale(1.5);
+  transform: scale(1.2);
   transition: all 0.3s ease-in-out;
 }
 
 .clicked {
-  transform: scale(1.5);
+  transform: scale(1.2);
 }
